@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Keep Trash
+  ~
+  ~ Xposed module to move 'Delete' button from overflow menu to action bar
+  ~ in Google Keep
+  ~
+  ~ Copyright (c) 2014 Shubhang Rathore
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- App info -->
+
+    <PreferenceScreen
+        android:title="@string/app_name"
+        android:summary="@string/app_copyright"
+        android:selectable="false" />
+
+    <PreferenceScreen
+        android:key="app_version_name_preference"
+        android:title="@string/app_version_text"
+        android:selectable="false" />
+
+    <CheckBoxPreference
+        android:key="hide_from_launcher_checkbox"
+        android:title="@string/disable_gui"
+        android:summary="@string/disable_gui_summary"
+        android:defaultValue="false" />
+
+
+    <!-- Google Keep info -->
+
+    <PreferenceCategory
+        android:title="@string/category_google_keep" />
+
+    <PreferenceScreen
+        android:key="installed_keep_version_preference"
+        android:title="@string/installed_version"
+        android:selectable="false" />
+
+
+    <!-- App details -->
+
+    <PreferenceCategory
+        android:title="@string/category_app_details" />
+
+    <PreferenceScreen
+        android:key="developer_preference"
+        android:title="@string/developer"
+        android:summary="@string/developer_summary" />
+
+    <PreferenceScreen
+        android:key="app_source_preference"
+        android:title="@string/source"
+        android:summary="@string/source_summary" />
+
+    <PreferenceScreen
+        android:key="changelog_preference"
+        android:title="@string/changelog"
+        android:summary="@string/changelog_summary" />
+
+    <PreferenceScreen
+        android:key="read_more_preference"
+        android:title="@string/read_more"
+        android:summary="@string/read_more_summary" />
+
+</PreferenceScreen>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Keep Trash
+  ~
+  ~ Xposed module to move 'Delete' button from overflow menu to action bar
+  ~ in Google Keep
+  ~
+  ~ Copyright (c) 2014 Shubhang Rathore
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<resources>
+
+    <!-- App info -->
+
+    <string name="app_name">Keep Trash</string>
+    <string name="app_copyright">
+        Copyright © 2014 Shubhang Rathore
+        \nGoogle+: http://google.com/+ShubhangRathore
+        \nGithub: https://github.com/xenon92
+        \nWebsite: http://shubhangrathore.com</string>
+
+    <string name="app_version_text">Version</string>
+
+
+    <!-- Menu -->
+
+    <string name="action_exit">Exit</string>
+
+
+    <!--
+
+    Google Keep Strings
+
+    These are the official strings used in Google Keep app
+    for selection_context_menu
+
+    -->
+
+    <string name="menu_archive">Archive</string>
+    <string name="menu_unarchive">Unarchive</string>
+    <string name="menu_add_reminder">Add reminder</string>
+    <string name="color_picker_content_description">Note color</string>
+    <string name="menu_restore">Restore</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_share">Share</string>
+
+
+    <!-- Misc strings -->
+
+    <string name="disable_gui">Disable GUI</string>
+    <string name="disable_gui_summary">
+        Hide \'Keep Trash\' app in launcher
+        \nModule will work even after disabling the GUI
+        \nReinstall module to enable GUI again</string>
+
+    <string name="category_google_keep">Google Keep</string>
+    <string name="installed_version">Installed version</string>
+    <string name="keep_not_installed">Google Keep not installed</string>
+    <string name="tap_to_open_keep_in_play_store">\nTap to open Google Keep in Play Store</string>
+    <string name="gui_disbaled">Keep Trash - GUI disabled</string>
+    <string name="hidden_from_launcher">Keep Trash will not show in launcher anymore</string>
+    <string name="module_will_still_work">This will still work as an Xposed module</string>
+    <string name="reinstall_to_enable_gui">Reinstall to enable GUI again</string>
+
+
+    <!-- App details -->
+
+    <string name="category_app_details">App details</string>
+
+    <string name="source">Source</string>
+    <string name="source_summary">Go through the source code of the app</string>
+
+    <string name="developer">Developer</string>
+    <string name="developer_summary">
+        Shubhang Rathore
+        \nVisit developer\'s website</string>
+
+    <string name="changelog">Changelog</string>
+    <string name="changelog_summary">See the changelog for the app</string>
+
+    <string name="read_more">Read more</string>
+    <string name="read_more_summary">Know more about Keep Trash Xposed module</string>
+
+</resources>
