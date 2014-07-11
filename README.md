@@ -20,7 +20,6 @@ So I moved the button to the action bar. Now, to delete a note -
 1. Long tap the note
 2. Tap on 'Delete'
 
-Saves time!
 
 
 Screenshots
@@ -46,7 +45,7 @@ How to use?
 Support
 ---
 
-Bugs reports, suggestions and support can be found on XDA-developers [thread] for Keep Trash.
+Bugs reports, suggestions and support can be found on XDA-developers [thread](http://forum.xda-developers.com/xposed/modules/mod-trash-t2812589) for Keep Trash.
 
 Requirements
 ---
