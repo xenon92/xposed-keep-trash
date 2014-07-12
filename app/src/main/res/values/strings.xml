@@ -65,6 +65,15 @@
     <string name="keep_not_installed">Google Keep not installed</string>
     <string name="tap_to_open_keep_in_play_store">\nOpen Google Keep in Play Store</string>
 
+    <string name="show_delete">Delete</string>
+    <string name="show_delete_summary">Move Delete icon to action bar</string>
+
+    <string name="show_share">Share</string>
+    <string name="show_share_summary">Move Share icon to action bar</string>
+
+    <string name="show_archive">Archive/Unarchive</string>
+    <string name="show_archive_summary">Move Archive/Unarchive icon in action bar</string>
+
 
     <!-- App details -->
 
