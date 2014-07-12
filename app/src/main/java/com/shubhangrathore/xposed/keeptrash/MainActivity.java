@@ -53,7 +53,6 @@ public class MainActivity extends PreferenceActivity {
     private Preference mChangelog;
     private Preference mDeveloper;
     Preference mGoogleKeepVersionPreference;
-    private CheckBoxPreference mHideFromLauncher;
     private Preference mReadMore;
     private Preference mSource;
 
@@ -66,7 +65,6 @@ public class MainActivity extends PreferenceActivity {
         mChangelog = findPreference("changelog_preference");
         mDeveloper = findPreference("developer_preference");
         mGoogleKeepVersionPreference = findPreference("installed_keep_version_preference");
-        mHideFromLauncher = (CheckBoxPreference) findPreference("hide_from_launcher_checkbox");
         mReadMore = findPreference("read_more_preference");
         mSource = findPreference("app_source_preference");
 
@@ -141,31 +139,6 @@ public class MainActivity extends PreferenceActivity {
 
             openLink(GOOGLE_KEEP_PLAY_STORE_LINK);
 
-        } else if (preference == mHideFromLauncher) {
-
-            if (mHideFromLauncher.isChecked()) {
-
-                // As soon as the checkbox is checked, GUI is disabled.
-                // Checkbox is disabled too here. This prevent launch of the
-                // app even through the Xposed Installer menu.
-                // This also hides the app icon from the launcher.
-                // Xposed Module will still work in the background even after
-                // the GUI is disabled.
-
-                PackageManager mPackageManager = getPackageManager();
-                mPackageManager.setComponentEnabledSetting(getComponentName(),
-                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                        PackageManager.DONT_KILL_APP);
-
-                mHideFromLauncher.setSelectable(false);
-                mHideFromLauncher.setEnabled(false);
-
-                showNotificationGuiDisabled();
-
-                Log.i(TAG, "GUI disabled. Notification shown.");
-
-           }
-
         } else if (preference == mReadMore) {
 
             openLink(READ_MORE_LINK);
@@ -227,29 +200,4 @@ public class MainActivity extends PreferenceActivity {
         return mGoogleKeepVersion;
     }
 
-    /**
-     * Post status bar notification for the user to inform him that
-     * GUI has been disabled, with instructions to how to enable it again.
-     */
-    private void showNotificationGuiDisabled() {
-
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_notification);
-
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-
-        inboxStyle.setBigContentTitle(getString(R.string.gui_disbaled));
-
-        inboxStyle.addLine(getString(R.string.hidden_from_launcher));
-        inboxStyle.addLine(getString(R.string.module_will_still_work));
-        inboxStyle.addLine(getString(R.string.reinstall_to_enable_gui));
-
-        mBuilder.setStyle(inboxStyle);
-        mNotificationManager.notify(0, mBuilder.build());
-
-    }
 }

@@ -36,12 +36,6 @@
         android:title="@string/app_version_text"
         android:selectable="false" />
 
-    <CheckBoxPreference
-        android:key="hide_from_launcher_checkbox"
-        android:title="@string/disable_gui"
-        android:summary="@string/disable_gui_summary"
-        android:defaultValue="false" />
-
 
     <!-- Google Keep info -->
 
