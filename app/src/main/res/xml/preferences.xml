@@ -47,21 +47,21 @@
         android:title="@string/installed_version" />
 
     <CheckBoxPreference
-        android:key="show_delete_preference"
+        android:key="show_delete_checkbox_preference"
         android:icon="@drawable/ic_trash_dark"
         android:title="@string/show_delete"
         android:summary="@string/show_delete_summary"
         android:defaultValue="true" />
 
     <CheckBoxPreference
-        android:key="show_share_preference"
+        android:key="show_share_checkbox_preference"
         android:icon="@drawable/ic_share_dark"
         android:title="@string/show_share"
         android:summary="@string/show_share_summary"
         android:defaultValue="false" />
 
     <CheckBoxPreference
-        android:key="show_archive_preference"
+        android:key="show_archive_checkbox_preference"
         android:icon="@drawable/ic_mark_active_dark"
         android:title="@string/show_archive"
         android:summary="@string/show_archive_summary"
