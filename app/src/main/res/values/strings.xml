@@ -63,7 +63,7 @@
     <string name="category_google_keep">Google Keep</string>
     <string name="installed_version">Installed version</string>
     <string name="keep_not_installed">Google Keep not installed</string>
-    <string name="tap_to_open_keep_in_play_store">\nTap to open Google Keep in Play Store</string>
+    <string name="tap_to_open_keep_in_play_store">\nOpen Google Keep in Play Store</string>
 
 
     <!-- App details -->

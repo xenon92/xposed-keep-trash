@@ -176,8 +176,7 @@ public class MainActivity extends PreferenceActivity {
             PackageInfo mPackageInfo = getPackageManager().getPackageInfo("com.google.android.keep", 0);
             mGoogleKeepVersion = mPackageInfo.versionName;
 
-            mGoogleKeepVersionPreference.setSummary(mGoogleKeepVersion);
-            mGoogleKeepVersionPreference.setSelectable(false);
+            mGoogleKeepVersionPreference.setSummary(mGoogleKeepVersion + getString(R.string.tap_to_open_keep_in_play_store));
             Log.i(TAG, "Google Keep version installed = " + mGoogleKeepVersion);
 
         } catch (PackageManager.NameNotFoundException e) {

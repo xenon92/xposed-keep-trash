@@ -44,8 +44,7 @@
 
     <PreferenceScreen
         android:key="installed_keep_version_preference"
-        android:title="@string/installed_version"
-        android:selectable="false" />
+        android:title="@string/installed_version" />
 
 
     <!-- App details -->
