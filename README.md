@@ -45,7 +45,7 @@ How to use?
 Support
 ---
 
-Bugs reports, suggestions and support can be found on XDA-developers [thread](http://forum.xda-developers.com/xposed/modules/mod-trash-t2812589) for Keep Trash.
+Bugs reports, suggestions and support can be found on XDA-developers **[thread](http://forum.xda-developers.com/xposed/modules/mod-trash-t2812589)** for Keep Trash.
 
 Requirements
 ---
@@ -59,6 +59,10 @@ Downloads
 Check the '**[Releases](https://github.com/xenon92/xposed-keep-trash/releases)**' section in my Github source.
 Check the '**[Xposed module repository](http://repo.xposed.info/module/com.shubhangrathore.xposed.keeptrash)**'
 
+Changelog
+---
+
+Check the changelog **[here](https://github.com/xenon92/xposed-keep-trash/blob/master/CHANGELOG.md)** or in my **[blog](http://blog.shubhangrathore.com/)** **[post](http://blog.shubhangrathore.com/keep-trash/index.html)**
 
 License
 ---
