@@ -68,7 +68,7 @@
 
     <!-- App details -->
 
-    <string name="category_app_details">App details</string>
+    <string name="category_app_details">Keep Trash</string>
 
     <string name="source">Source</string>
     <string name="source_summary">Go through the source code of the app</string>
