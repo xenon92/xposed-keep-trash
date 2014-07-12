@@ -22,7 +22,6 @@
 
 package com.shubhangrathore.xposed.keeptrash;
 
-import android.content.pm.PackageInfo;
 import android.content.res.XModuleResources;
 
 import de.robv.android.xposed.IXposedHookInitPackageResources;
