@@ -62,7 +62,7 @@
 
     <CheckBoxPreference
         android:key="show_archive_checkbox_preference"
-        android:icon="@drawable/ic_mark_active_dark"
+        android:icon="@drawable/ic_mark_inactive_dark"
         android:title="@string/show_archive"
         android:summary="@string/show_archive_summary"
         android:defaultValue="true" />
