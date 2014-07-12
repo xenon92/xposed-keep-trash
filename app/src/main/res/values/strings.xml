@@ -71,8 +71,8 @@
     <string name="show_share">Share</string>
     <string name="show_share_summary">Move Share icon to action bar</string>
 
-    <string name="show_archive">Archive/Unarchive</string>
-    <string name="show_archive_summary">Move Archive/Unarchive icon in action bar</string>
+    <string name="show_archive">Archive</string>
+    <string name="show_archive_summary">Move Archive icon to action bar</string>
 
 
     <!-- App details -->

@@ -24,12 +24,12 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:icon="@drawable/ic_mark_active_dark" android:id="@id/menu_unarchive" android:title="@string/menu_unarchive" android:showAsAction="always" />
     <item android:icon="@drawable/ic_reminder_dark" android:id="@id/menu_add_reminder" android:title="@string/menu_add_reminder" android:showAsAction="always" />
     <item android:icon="@drawable/ic_colorpicker_dark" android:id="@id/menu_color_picker" android:title="@string/color_picker_content_description" android:showAsAction="always" />
     <item android:icon="@drawable/ic_untrash_dark" android:id="@id/menu_restore" android:title="@string/menu_restore" android:showAsAction="always|withText" />
     <item android:icon="@drawable/ic_share_dark" android:id="@id/menu_share" android:title="@string/menu_share" android:showAsAction="always" />
     <item android:id="@id/menu_archive" android:title="@string/menu_archive" android:showAsAction="never" />
-    <item android:id="@id/menu_unarchive" android:title="@string/menu_unarchive" android:showAsAction="never" />
     <item android:id="@id/menu_delete" android:title="@string/menu_delete" android:showAsAction="never" />
 
 </menu>
