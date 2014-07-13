@@ -20,10 +20,20 @@ So I moved the button to the action bar. Now, to delete a note -
 1. Long tap the note
 2. Tap on 'Delete'
 
+In v1.1, I implemented a customizable icon listing in the action bar of the official Google Keep app. The users can select which icons they want to show in their Google Keep app action bar. Users can choose any combination, such as select only one among the menu icons listed below, choose any two, choose all three or choose none. Users can choose among the following icons -
+
+- Archive
+- Delete
+- Share
+
 
 
 Screenshots
 ---
+
+####GUI
+
+![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Jul/Screenshot_2014-07-13-13-12-35_HAenexus520140713_140345.png?raw=true)
 
 ####Before
 
