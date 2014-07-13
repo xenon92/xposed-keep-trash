@@ -27,12 +27,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends PreferenceActivity {
 
@@ -44,24 +46,31 @@ public class MainActivity extends PreferenceActivity {
     private static final String READ_MORE_LINK = "http://blog.shubhangrathore.com/keep-trash/index.html";
     private static final String SOURCE_CODE_LINK = "https://www.github.com/xenon92/xposed-keep-trash";
 
-    public static final String TAG = "xposed_keep_trash";
+    public static final String TAG = "XposedKeepTrash";
 
     private Preference mChangelog;
     private Preference mDeveloper;
     Preference mGoogleKeepVersionPreference;
     private Preference mReadMore;
+    private CheckBoxPreference mShowArchive;
+    private CheckBoxPreference mShowDelete;
+    private CheckBoxPreference mShowShare;
     private Preference mSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+
+        getPreferenceManager().setSharedPreferencesMode(MODE_WORLD_READABLE);
         addPreferencesFromResource(R.xml.preferences);
 
         mChangelog = findPreference("changelog_preference");
         mDeveloper = findPreference("developer_preference");
         mGoogleKeepVersionPreference = findPreference("installed_keep_version_preference");
         mReadMore = findPreference("read_more_preference");
+        mShowArchive = (CheckBoxPreference) findPreference("show_archive_checkbox_preference");
+        mShowDelete = (CheckBoxPreference) findPreference("show_delete_checkbox_preference");
+        mShowShare = (CheckBoxPreference) findPreference("show_share_checkbox_preference");
         mSource = findPreference("app_source_preference");
 
         setAppVersionNameInPreference();
@@ -144,6 +153,11 @@ public class MainActivity extends PreferenceActivity {
 
             openLink(SOURCE_CODE_LINK);
             return true;
+
+        } else if ((preference == mShowArchive) || (preference == mShowDelete) || (preference == mShowShare)) {
+
+            // Changes will take effect after restarting Google Keep
+            Toast.makeText(getApplicationContext(), getString(R.string.restart_google_keep_for_changes), Toast.LENGTH_SHORT).show();
 
         }
 

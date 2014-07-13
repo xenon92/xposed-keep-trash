@@ -23,9 +23,11 @@
 package com.shubhangrathore.xposed.keeptrash;
 
 import android.content.res.XModuleResources;
+import android.util.Log;
 
 import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookZygoteInit;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 
 /**
@@ -33,7 +35,15 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources;
  */
 public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposedHookZygoteInit {
 
+    private static String GOOGLE_KEEP = "com.google.android.keep";
     private static String MODULE_PATH = null;
+    private static String PACKAGE_NAME = XposedKeepTrash.class.getPackage().getName();
+    private static String TAG = "XposedKeepTrash";
+
+    private boolean mShowArchive;
+    private boolean mShowDelete;
+    private boolean mShowShare;
+
 
     @Override
     public void initZygote(IXposedHookZygoteInit.StartupParam startupParam) throws Throwable {
@@ -44,11 +54,13 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
     public void handleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam resParam) throws Throwable {
 
         // If package is not com.google.android.keep, return to not execute further
-        if (!resParam.packageName.equals("com.google.android.keep")) {
+        if (!resParam.packageName.equals(GOOGLE_KEEP)) {
             return;
         }
 
+        XSharedPreferences mXSharedPreferences = new XSharedPreferences(PACKAGE_NAME);
         XModuleResources modRes = XModuleResources.createInstance(MODULE_PATH, resParam.res);
+
 
         // In Google Keep app, "menu_delete" menu item is initialized in a different xml (ids.xml)
         // than where "menu_delete" is given its properties (selection_context_menu.xml).
@@ -63,8 +75,77 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
         // "custom_selection_context_menu" with the required properties for menu_delete.
         // I'll need to keep the "custom_selection_context_menu.xml" to the latest menu items
         // if the default "selection_context_menu.xml" in Google Keep changes its menu items.
-        resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
-                modRes.fwd(R.menu.custom_selection_context_menu));
 
+
+        mShowArchive = mXSharedPreferences.getBoolean("show_archive_checkbox_preference", true);
+        mShowDelete = mXSharedPreferences.getBoolean("show_delete_checkbox_preference", true);
+        mShowShare = mXSharedPreferences.getBoolean("show_share_checkbox_preference", true);
+
+
+        if (mShowArchive && !mShowDelete && !mShowShare) {
+
+            // Only show Archive in action bar
+            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
+                    modRes.fwd(R.menu.archive_selection_context_menu));
+
+            Log.i(TAG, "Replaced resources to show only Archive in action bar");
+
+        } else if (!mShowArchive && mShowDelete && !mShowShare) {
+
+            // Only show Delete in action bar
+            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
+                    modRes.fwd(R.menu.delete_selection_context_menu));
+
+            Log.i(TAG, "Replaced resources to show only Delete in action bar");
+
+        } else if (!mShowArchive && !mShowDelete && mShowShare) {
+
+            // Only show Share in action bar
+            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
+                    modRes.fwd(R.menu.share_selection_context_menu));
+
+            Log.i(TAG, "Replaced resources to show only Share in action bar");
+
+        } else if (mShowArchive && mShowDelete && !mShowShare) {
+
+            // Show Archive and Delete, but not Share in action bar
+            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
+                    modRes.fwd(R.menu.archive_delete_selection_context_menu));
+
+            Log.i(TAG, "Replaced resources to show both Archive and Delete in action bar");
+
+        } else if (!mShowArchive && mShowDelete && mShowShare) {
+
+            // Show Delete and Share, but not Archive in action bar
+            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
+                    modRes.fwd(R.menu.delete_share_selection_context_menu));
+
+            Log.i(TAG, "Replaced resources to show both Delete and Share in action bar");
+
+        } else if (mShowArchive && !mShowDelete && mShowShare) {
+
+            // Show Archive and Share, but not Delete in action bar
+            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
+                    modRes.fwd(R.menu.archive_share_selection_context_menu));
+
+            Log.i(TAG, "Replaced resources to show both Archive and Share in action bar");
+
+        } else if (mShowArchive && mShowDelete && mShowShare) {
+
+            // Show Archive, Delete and Share in action bar (all)
+            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
+                    modRes.fwd(R.menu.archive_delete_share_selection_context_menu));
+
+            Log.i(TAG, "Replaced resources to show all icons in action bar");
+
+        } else if (!mShowArchive && !mShowDelete && !mShowShare) {
+
+            // Show none among Archive, Delete or Share in action bar (none)
+            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
+                    modRes.fwd(R.menu.none_selection_context_menu));
+
+            Log.i(TAG, "Replaced resources to show none of the icons in action bar");
+
+        }
     }
 }

@@ -74,6 +74,8 @@
     <string name="show_archive">Archive</string>
     <string name="show_archive_summary">Move Archive icon to action bar</string>
 
+    <string name="restart_google_keep_for_changes">Restart Google Keep for changes to take effect</string>
+
 
     <!-- App details -->
 
