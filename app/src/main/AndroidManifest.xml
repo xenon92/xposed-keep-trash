@@ -26,7 +26,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Moves \'Delete\' button from 3-dot overflow menu to action bar in Google Keep" />
+            android:value="Moves \'Delete\', \'Archive\' or \'Share\' button from 3-dot overflow menu to action bar in official Google Keep app" />
         <meta-data
             android:name="xposedminversion"
             android:value="30" />
