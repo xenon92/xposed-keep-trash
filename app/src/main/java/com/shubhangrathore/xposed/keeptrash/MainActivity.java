@@ -36,7 +36,10 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
+
+import com.faizmalkani.floatingactionbutton.Fab;
 
 public class MainActivity extends PreferenceActivity {
 
@@ -65,6 +68,7 @@ public class MainActivity extends PreferenceActivity {
 
         getPreferenceManager().setSharedPreferencesMode(MODE_WORLD_READABLE);
         addPreferencesFromResource(R.xml.preferences);
+        setContentView(R.layout.activity_main);
 
         mChangelog = findPreference("changelog_preference");
         mDeveloper = findPreference("developer_preference");
@@ -75,6 +79,7 @@ public class MainActivity extends PreferenceActivity {
         mShowShare = (CheckBoxPreference) findPreference("show_share_checkbox_preference");
         mSource = findPreference("app_source_preference");
 
+        initializeFloatingButton();
         setActionBarColor();
         setAppVersionNameInPreference();
         setGoogleKeepVersion();
@@ -215,6 +220,25 @@ public class MainActivity extends PreferenceActivity {
     private void setActionBarColor() {
         int mColorBlue = getResources().getColor(android.R.color.holo_blue_dark);
         getActionBar().setBackgroundDrawable(new ColorDrawable(mColorBlue));
+    }
+
+
+    private void initializeFloatingButton() {
+
+        Fab mFab = (Fab)findViewById(R.id.fabbutton);
+        mFab.setFabColor(getResources().getColor(android.R.color.white));
+        mFab.setFabDrawable(getResources().getDrawable(R.drawable.ic_keep_torch));
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent mOpenAppIntent = getPackageManager()
+                        .getLaunchIntentForPackage("com.google.android.keep");
+                startActivity(mOpenAppIntent);
+
+            }
+        });
+
     }
 
 }
