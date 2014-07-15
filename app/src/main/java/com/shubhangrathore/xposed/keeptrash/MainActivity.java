@@ -25,6 +25,8 @@ package com.shubhangrathore.xposed.keeptrash;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -73,6 +75,7 @@ public class MainActivity extends PreferenceActivity {
         mShowShare = (CheckBoxPreference) findPreference("show_share_checkbox_preference");
         mSource = findPreference("app_source_preference");
 
+        setActionBarColor();
         setAppVersionNameInPreference();
         setGoogleKeepVersion();
 
@@ -207,6 +210,11 @@ public class MainActivity extends PreferenceActivity {
     private String getGoogleKeepVersion() {
 
         return mGoogleKeepVersion;
+    }
+
+    private void setActionBarColor() {
+        int mColorBlue = getResources().getColor(android.R.color.holo_blue_dark);
+        getActionBar().setBackgroundDrawable(new ColorDrawable(mColorBlue));
     }
 
 }
