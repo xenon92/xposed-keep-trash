@@ -234,6 +234,7 @@ public class MainActivity extends PreferenceActivity {
 
                 try {
 
+                    Log.i(TAG, "Opening Google Keep through floating button");
                     Intent mOpenAppIntent = getPackageManager()
                             .getLaunchIntentForPackage("com.google.android.keep");
                     startActivity(mOpenAppIntent);
@@ -244,6 +245,7 @@ public class MainActivity extends PreferenceActivity {
                             getString(R.string.opening_in_play_store),
                             Toast.LENGTH_SHORT).show();
 
+                    Log.i(TAG, "Google Keep not installed");
                     openLink(GOOGLE_KEEP_PLAY_STORE_LINK);
 
                 }
