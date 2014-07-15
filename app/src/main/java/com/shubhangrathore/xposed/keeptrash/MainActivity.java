@@ -232,10 +232,21 @@ public class MainActivity extends PreferenceActivity {
             @Override
             public void onClick(View view) {
 
-                Intent mOpenAppIntent = getPackageManager()
-                        .getLaunchIntentForPackage("com.google.android.keep");
-                startActivity(mOpenAppIntent);
+                try {
 
+                    Intent mOpenAppIntent = getPackageManager()
+                            .getLaunchIntentForPackage("com.google.android.keep");
+                    startActivity(mOpenAppIntent);
+
+                } catch (NullPointerException e) {
+
+                    Toast.makeText(getApplicationContext(),
+                            getString(R.string.opening_in_play_store),
+                            Toast.LENGTH_SHORT).show();
+
+                    openLink(GOOGLE_KEEP_PLAY_STORE_LINK);
+
+                }
             }
         });
 
