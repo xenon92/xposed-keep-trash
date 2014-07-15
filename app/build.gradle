@@ -6,7 +6,7 @@ android {
     buildToolsVersion '20.0.0'
     defaultConfig {
         applicationId "com.shubhangrathore.xposed.keeptrash"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 20
     }
     buildTypes {
