@@ -37,6 +37,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.faizmalkani.floatingactionbutton.Fab;
@@ -55,12 +57,18 @@ public class MainActivity extends PreferenceActivity {
 
     private Preference mChangelog;
     private Preference mDeveloper;
-    Preference mGoogleKeepVersionPreference;
+    private Preference mGoogleKeepVersionPreference;
+    private ListView mPreferenceListView;
     private Preference mReadMore;
     private CheckBoxPreference mShowArchive;
     private CheckBoxPreference mShowDelete;
     private CheckBoxPreference mShowShare;
     private Preference mSource;
+
+    private Fab mFab;
+
+    private boolean mIsScrollingUp;
+    int mLastFirstVisibleItem = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +81,7 @@ public class MainActivity extends PreferenceActivity {
         mChangelog = findPreference("changelog_preference");
         mDeveloper = findPreference("developer_preference");
         mGoogleKeepVersionPreference = findPreference("installed_keep_version_preference");
+        mPreferenceListView = (ListView) findViewById(android.R.id.list);
         mReadMore = findPreference("read_more_preference");
         mShowArchive = (CheckBoxPreference) findPreference("show_archive_checkbox_preference");
         mShowDelete = (CheckBoxPreference) findPreference("show_delete_checkbox_preference");
@@ -80,6 +89,7 @@ public class MainActivity extends PreferenceActivity {
         mSource = findPreference("app_source_preference");
 
         initializeFloatingButton();
+        hideUnhideFloatingButton();
         setActionBarColor();
         setAppVersionNameInPreference();
         setGoogleKeepVersion();
@@ -225,7 +235,7 @@ public class MainActivity extends PreferenceActivity {
 
     private void initializeFloatingButton() {
 
-        Fab mFab = (Fab)findViewById(R.id.fabbutton);
+        mFab = (Fab)findViewById(R.id.fabbutton);
         mFab.setFabColor(getResources().getColor(android.R.color.white));
         mFab.setFabDrawable(getResources().getDrawable(R.drawable.ic_keep_torch));
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -249,6 +259,38 @@ public class MainActivity extends PreferenceActivity {
                     openLink(GOOGLE_KEEP_PLAY_STORE_LINK);
 
                 }
+            }
+        });
+
+    }
+
+    private void hideUnhideFloatingButton() {
+
+        mPreferenceListView.setOnScrollListener(new AbsListView.OnScrollListener(){
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                final ListView mListView = getListView();
+
+                 if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE)
+                    // Scrolling stopped here
+
+                    if (view.getId() == mListView.getId()) {
+                        final int currentFirstVisibleItem = mListView.getFirstVisiblePosition();
+                        if (currentFirstVisibleItem > mLastFirstVisibleItem) {
+                            // Scrolling down here
+                            mIsScrollingUp = false;
+                            mFab.hideFab();
+                        } else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
+                            // Scrolling up here
+                            mIsScrollingUp = true;
+                            mFab.showFab();
+                        }
+                        mLastFirstVisibleItem = currentFirstVisibleItem;
+                    }
             }
         });
 
