@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@drawable/ic_colorpicker_light" android:id="@id/color_picker" android:title="@string/color_picker_content_description" android:showAsAction="always" />
+    <item android:icon="@drawable/ic_camera_light" android:id="@id/menu_add_picture" android:title="@string/menu_add_picture" android:showAsAction="always" />
+    <item android:icon="@drawable/ic_mark_inactive_light" android:id="@id/menu_archive" android:title="@string/menu_archive" android:showAsAction="always" />
+    <item android:icon="@drawable/ic_mark_active_light" android:id="@id/menu_unarchive" android:title="@string/menu_unarchive" android:showAsAction="always" />
+    <item android:icon="@drawable/ic_trash_light" android:id="@id/menu_delete" android:title="@string/menu_delete" android:showAsAction="ifRoom" />
+    <item android:id="@id/menu_clone" android:title="@string/menu_clone" />
+    <item android:id="@id/menu_share" android:title="@string/menu_share" />
+    <item android:id="@id/menu_show_extracted_text" android:title="@string/menu_show_extracted_text" />
+    <item android:id="@id/menu_reset_list" android:title="@string/menu_reset_list" />
+    <item android:id="@id/menu_show_checkboxes" android:title="@string/menu_show_checkboxes" />
+    <item android:id="@id/menu_hide_checkboxes" android:title="@string/menu_hide_checkboxes" />
+    <item android:id="@id/menu_list_settings" android:title="@string/menu_list_settings" />
+</menu>

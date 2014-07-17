@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Keep Trash
+  ~
+  ~ Xposed module to move 'Delete' button from overflow menu to action bar
+  ~ in Google Keep
+  ~
+  ~ Copyright (c) 2014 Shubhang Rathore
+  ~
+  ~ This program is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@drawable/ic_colorpicker_light" android:id="@id/color_picker" android:title="@string/color_picker_content_description" android:showAsAction="always" />
+    <item android:icon="@drawable/ic_camera_light" android:id="@id/menu_add_picture" android:title="@string/menu_add_picture" android:showAsAction="always" />
+    <item android:icon="@drawable/ic_mark_inactive_light" android:id="@id/menu_archive" android:title="@string/menu_archive" android:showAsAction="never" />
+    <item android:icon="@drawable/ic_mark_active_light" android:id="@id/menu_unarchive" android:title="@string/menu_unarchive" android:showAsAction="always" />
+    <item android:icon="@drawable/ic_trash_light" android:id="@id/menu_delete" android:title="@string/menu_delete" android:showAsAction="ifRoom" />
+    <item android:id="@id/menu_clone" android:title="@string/menu_clone" />
+    <item android:id="@id/menu_share" android:title="@string/menu_share" />
+    <item android:id="@id/menu_show_extracted_text" android:title="@string/menu_show_extracted_text" />
+    <item android:id="@id/menu_reset_list" android:title="@string/menu_reset_list" />
+    <item android:icon="@drawable/ic_checked_checkbox_light" android:id="@id/menu_show_checkboxes" android:title="@string/menu_show_checkboxes" android:showAsAction="always"/>
+    <item android:icon="@drawable/ic_unchecked_checkbox_light" android:id="@id/menu_hide_checkboxes" android:title="@string/menu_hide_checkboxes" android:showAsAction="always"/>
+    <item android:id="@id/menu_list_settings" android:title="@string/menu_list_settings" />
+</menu>
