@@ -30,5 +30,13 @@
     <item type="id" name="menu_restore">false</item>
     <item type="id" name="menu_delete">false</item>
     <item type="id" name="menu_share">false</item>
+    <item type="id" name="color_picker">false</item>
+    <item type="id" name="menu_add_picture">false</item>
+    <item type="id" name="menu_clone">false</item>
+    <item type="id" name="menu_show_extracted_text">false</item>
+    <item type="id" name="menu_reset_list">false</item>
+    <item type="id" name="menu_show_checkboxes">false</item>
+    <item type="id" name="menu_hide_checkboxes">false</item>
+    <item type="id" name="menu_list_settings">false</item>
 
 </resources>

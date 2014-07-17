@@ -56,6 +56,13 @@
     <string name="menu_restore">Restore</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_share">Share</string>
+    <string name="menu_add_picture">Add picture</string>
+    <string name="menu_clone">Make a copy</string>
+    <string name="menu_show_extracted_text">Grab image text</string>
+    <string name="menu_reset_list">Uncheck all items</string>
+    <string name="menu_show_checkboxes">Show checkboxes</string>
+    <string name="menu_hide_checkboxes">Hide checkboxes</string>
+    <string name="menu_list_settings">List settings</string>
 
 
     <!-- Keep Trash GUI strings -->
@@ -74,9 +81,13 @@
     <string name="show_archive">Archive</string>
     <string name="show_archive_summary">Move Archive icon to action bar</string>
 
-    <string name="restart_google_keep_for_changes">Restart Google Keep for changes to take effect</string>
+    <string name="show_show_checkboxes">Show/Hide checkboxes</string>
+    <string name="show_show_checkboxes_summary">Move Show/Hide checkboxes icon to action bar</string>
 
+    <string name="restart_google_keep_for_changes">Restart Google Keep for changes to take effect</string>
     <string name="opening_in_play_store">Opening Google Keep in Play Store</string>
+    <string name="note_selected_category">Note selected</string>
+    <string name="note_editor_category">Note editor</string>
 
 
     <!-- App details -->
