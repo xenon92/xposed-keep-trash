@@ -3,7 +3,7 @@ Keep Trash
 
 ####My blog [post](http://blog.shubhangrathore.com/keep-trash/index.html) for Keep Trash.
 
-An open source Xposed module for android to move the 'Delete' button from overflow menu to action bar in **[Google Keep](https://play.google.com/store/apps/details?id=com.google.android.keep)** app.
+An open source Xposed module for android, to move 'Delete', 'Archive', 'Show/Hide Checkboxes' or 'Share' menu options from 3-dot overflow menu to the action bar in official **[Google Keep](https://play.google.com/store/apps/details?id=com.google.android.keep)** app.
 
 I use Google Keep **a lot** to jot down thoughts that come to my mind, thoughts that may come in handy in future. This leads to many many notes scattered all over the app.
 
@@ -13,25 +13,34 @@ To delete a note, I had to -
 2. Tap on the 3-dot overflow menu
 3. Tap on 'Delete'.
 
-It was kind of frustrating for me to have an extra tap to open the 3-dot overflow menu just so that I could reach the 'Delete' button.
+It was kind of frustrating for me to have an extra tap to open the 3-dot overflow menu just so that I could reach the 'Delete' button. Such was the case with a few more menu options that were hidden inside the overflow menu and were an extra tap away.
 
-So I moved the button to the action bar. Now, to delete a note - 
+So I moved the buttons to the action bar. Now, to delete a note - 
 
 1. Long tap the note
 2. Tap on 'Delete'
 
-In v1.1, I implemented a customizable icon listing in the action bar of the official Google Keep app. The users can select which icons they want to show in their Google Keep app action bar. Users can choose any combination, such as select only one among the menu icons listed below, choose any two, choose all three or choose none. Users can choose among the following icons -
+In v1.1, I implemented a customizable icon listing in the action bar when the note was selected in the official Google Keep app. Users can choose any combination, such as select only one among the menu icons listed below, choose any two, choose all three or choose none. Users can choose among the following icons -
 
 - Archive
 - Delete
 - Share
 
+In v1.2, I implemented a customizable icon listing in the action bar when the note was being edited in the official Google Keep app. Just like v1.1, users can selected any combination among the menu items listed below - 
+
+- Archive
+- Show/Hide Checkboxes
+
+Users can select which icons they want to show in their Google Keep app action bar and customize the way they use Google Keep.
 
 
 Screenshots
 ---
 
 ####GUI
+
+
+![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Jul/Screenshot_2014-07-17-18-38-18_jhtnexus520140717_183932.png?raw=true)
 
 ![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Jul/Screenshot_2014-07-13-13-12-35_HAenexus520140713_140345.png?raw=true)
 
@@ -61,7 +70,7 @@ Requirements
 ---
 
 - Xposed framework
-- Android 4.0+
+- Android 4.0.3+
 
 Downloads
 ---
