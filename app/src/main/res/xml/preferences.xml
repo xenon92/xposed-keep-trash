@@ -46,6 +46,12 @@
         android:key="installed_keep_version_preference"
         android:title="@string/installed_version" />
 
+
+    <!-- Note selected action bar customizations -->
+
+    <PreferenceCategory
+        android:title="@string/note_selected_category"/>
+
     <CheckBoxPreference
         android:key="show_delete_checkbox_preference"
         android:icon="@drawable/ic_trash_dark"
@@ -65,6 +71,26 @@
         android:icon="@drawable/ic_mark_inactive_dark"
         android:title="@string/show_archive"
         android:summary="@string/show_archive_summary"
+        android:defaultValue="true" />
+
+
+    <!-- Note editor action bar customizations -->
+
+    <PreferenceCategory
+        android:title="@string/note_editor_category" />
+
+    <CheckBoxPreference
+        android:key="show_archive_editor_checkbox_preference"
+        android:icon="@drawable/ic_mark_inactive_dark"
+        android:title="@string/show_archive"
+        android:summary="@string/show_archive_summary"
+        android:defaultValue="true" />
+
+    <CheckBoxPreference
+        android:key="show_show_checkboxes_editor_checkbox_preference"
+        android:icon="@drawable/ic_checked_checkbox_dark"
+        android:title="@string/show_show_checkboxes"
+        android:summary="@string/show_show_checkboxes_summary"
         android:defaultValue="true" />
 
 

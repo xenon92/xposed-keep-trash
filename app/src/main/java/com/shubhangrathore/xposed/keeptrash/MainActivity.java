@@ -25,7 +25,6 @@ package com.shubhangrathore.xposed.keeptrash;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -61,7 +60,9 @@ public class MainActivity extends PreferenceActivity {
     private ListView mPreferenceListView;
     private Preference mReadMore;
     private CheckBoxPreference mShowArchive;
+    private CheckBoxPreference mShowArchiveEditor;
     private CheckBoxPreference mShowDelete;
+    private CheckBoxPreference mShowShowCheckboxesEditor;
     private CheckBoxPreference mShowShare;
     private Preference mSource;
 
@@ -84,7 +85,9 @@ public class MainActivity extends PreferenceActivity {
         mPreferenceListView = (ListView) findViewById(android.R.id.list);
         mReadMore = findPreference("read_more_preference");
         mShowArchive = (CheckBoxPreference) findPreference("show_archive_checkbox_preference");
+        mShowArchiveEditor = (CheckBoxPreference) findPreference("show_archive_editor_checkbox_preference");
         mShowDelete = (CheckBoxPreference) findPreference("show_delete_checkbox_preference");
+        mShowShowCheckboxesEditor = (CheckBoxPreference) findPreference("show_show_checkboxes_editor_checkbox_preference");
         mShowShare = (CheckBoxPreference) findPreference("show_share_checkbox_preference");
         mSource = findPreference("app_source_preference");
 
@@ -172,10 +175,14 @@ public class MainActivity extends PreferenceActivity {
             openLink(SOURCE_CODE_LINK);
             return true;
 
-        } else if ((preference == mShowArchive) || (preference == mShowDelete) || (preference == mShowShare)) {
+        } else if ((preference == mShowArchive) || (preference == mShowDelete)
+                || (preference == mShowShare) || (preference == mShowArchiveEditor)
+                || (preference == mShowShowCheckboxesEditor)) {
 
             // Changes will take effect after restarting Google Keep
-            Toast.makeText(getApplicationContext(), getString(R.string.restart_google_keep_for_changes), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.restart_google_keep_for_changes),
+                    Toast.LENGTH_SHORT).show();
 
         }
 

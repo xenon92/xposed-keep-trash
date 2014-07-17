@@ -41,7 +41,9 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
     private static String TAG = "XposedKeepTrash";
 
     private boolean mShowArchive;
+    private boolean mShowArchiveEditor;
     private boolean mShowDelete;
+    private boolean mShowShowCheckboxesEditor;
     private boolean mShowShare;
 
 
@@ -78,9 +80,13 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
 
 
         mShowArchive = mXSharedPreferences.getBoolean("show_archive_checkbox_preference", true);
+        mShowArchiveEditor = mXSharedPreferences.getBoolean("show_archive_editor_checkbox_preference", true);
         mShowDelete = mXSharedPreferences.getBoolean("show_delete_checkbox_preference", true);
+        mShowShowCheckboxesEditor = mXSharedPreferences.getBoolean("show_show_checkboxes_editor_checkbox_preference", true);
         mShowShare = mXSharedPreferences.getBoolean("show_share_checkbox_preference", true);
 
+
+        // Replacing resources for action bar when note is selected
 
         if (mShowArchive && !mShowDelete && !mShowShare) {
 
@@ -145,6 +151,46 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
                     modRes.fwd(R.menu.none_selection_context_menu));
 
             Log.i(TAG, "Replaced resources to show none of the icons in action bar");
+
+        }
+
+
+        // Replacing resources for action bar when note is being edited
+
+        if (!mShowArchiveEditor && !mShowShowCheckboxesEditor) {
+
+            // Show none of Archive or Show/Hide checkboxes in action bar
+            resParam.res.setReplacement("com.google.android.keep", "menu", "editor_menu",
+                    modRes.fwd(R.menu.none_editor_menu));
+
+            Log.i(TAG, "Replaced resources to show none of Archive or Show/Hide checkbox in action bar in note editor");
+
+        } else if (!mShowArchiveEditor && mShowShowCheckboxesEditor) {
+
+            // Only show Show/Hide checkboxes menu item in action bar
+            resParam.res.setReplacement("com.google.android.keep", "menu", "editor_menu",
+                    modRes.fwd(R.menu.show_hide_checkboxes_editor_menu));
+
+            Log.i(TAG, "Replaced resources to show only Show/Hide checkboxes in action bar in note editor");
+
+        } else if (mShowArchiveEditor && mShowShowCheckboxesEditor) {
+
+            // Show both Archive and Show/Hide Checkboxes in action bar
+            resParam.res.setReplacement("com.google.android.keep", "menu", "editor_menu",
+                    modRes.fwd(R.menu.archive_show_hide_checkboxes_editor_menu));
+
+            Log.i(TAG, "Replaced resources to show both Delete and Show/Hide checkboxes in action bar in note editor");
+
+        } else if (mShowArchiveEditor && !mShowShowCheckboxesEditor) {
+
+            // Only show Archive in action bar
+            // This is the default editor menu of Google Keep.
+            // This condition needs to be overwritten by xposed or else in a common use case,
+            // the previously selected menu replacement will stay in effect.
+            resParam.res.setReplacement("com.google.android.keep", "menu", "editor_menu",
+                    modRes.fwd(R.menu.official_editor_menu));
+
+            Log.i(TAG, "Replaced resources with official editor_menu to show only Archive in action bar in note editor");
 
         }
     }
