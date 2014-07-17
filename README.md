@@ -20,13 +20,13 @@ So I moved the buttons to the action bar. Now, to delete a note -
 1. Long tap the note
 2. Tap on 'Delete'
 
-In v1.1, I implemented a customizable icon listing in the action bar when the note was selected in the official Google Keep app. Users can choose any combination, such as select only one among the menu icons listed below, choose any two, choose all three or choose none. Users can choose among the following icons -
+In v1.1, I implemented a **customized icon listing** in the action bar when the **note is selected** in the official Google Keep app. Users can choose any combination, such as select only one among the menu icons listed below, choose any two, choose all three or choose none. Users can choose among the following icons -
 
 - Archive
 - Delete
 - Share
 
-In v1.2, I implemented a customizable icon listing in the action bar when the note was being edited in the official Google Keep app. Just like v1.1, users can selected any combination among the menu items listed below - 
+In v1.2, I implemented a **customized icon listing** in the action bar when the **note is being edited** in the official Google Keep app. Just like v1.1, users can select any combination among the menu items listed below - 
 
 - Archive
 - Show/Hide Checkboxes
@@ -57,7 +57,7 @@ Screenshots
 How to use?
 ---
 
-- Install **[Xposed](http://forum.xda-developers.com/xposed/xposed-installer-versions-changelog-t2714053)** framework for android by the developer **[rovo89](https://github.com/rovo89)**
+- Install **[Xposed](http://repo.xposed.info/)** framework for android by the developer **[rovo89](https://github.com/rovo89)**
 - Install **[Keep Trash](http://repo.xposed.info/module/com.shubhangrathore.xposed.keeptrash)**
 - Enable Keep Trash in Xposed
 
@@ -69,7 +69,7 @@ Bugs reports, suggestions and support can be found on XDA-developers **[thread](
 Requirements
 ---
 
-- Xposed framework
+- **[Xposed](http://repo.xposed.info/)** framework
 - Android 4.0.3+
 
 Downloads
