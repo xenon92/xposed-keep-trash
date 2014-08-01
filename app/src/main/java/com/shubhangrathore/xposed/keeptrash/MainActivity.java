@@ -244,7 +244,7 @@ public class MainActivity extends PreferenceActivity {
 
         mFab = (Fab)findViewById(R.id.fabbutton);
         mFab.setFabColor(getResources().getColor(android.R.color.white));
-        mFab.setFabDrawable(getResources().getDrawable(R.drawable.ic_keep_torch));
+        mFab.setFabDrawable(getResources().getDrawable(R.drawable.ic_keep_lightbulb));
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
