@@ -77,6 +77,7 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
         // "custom_selection_context_menu" with the required properties for menu_delete.
         // I'll need to keep the "custom_selection_context_menu.xml" to the latest menu items
         // if the default "selection_context_menu.xml" in Google Keep changes its menu items.
+        // Same holds true for "editor_menu.xml".
 
 
         mShowArchive = mXSharedPreferences.getBoolean("show_archive_checkbox_preference", true);
@@ -87,6 +88,7 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
 
 
         // Replacing resources for action bar when note is selected
+        // Replacing original selection_context_menu.xml with custom menu
 
         if (mShowArchive && !mShowDelete && !mShowShare) {
 
@@ -156,6 +158,7 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
 
 
         // Replacing resources for action bar when note is being edited
+        // Replacing original editor_menu.xml with custom menu
 
         if (!mShowArchiveEditor && !mShowShowCheckboxesEditor) {
 
