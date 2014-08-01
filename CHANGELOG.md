@@ -7,6 +7,14 @@ Changelog
 **Read more about Keep Trash on my [blog](http://blog.shubhangrathore.com/) [post](http://blog.shubhangrathore.com/keep-trash/index.html)**
 
 
+####v1.3
+
+- Fix action bar icon sizes for official Google Keep
+- Remove "Exit" button from Keep Trash action bar
+- Added German translations (thanx to mihahn @ XDA-developers)
+
+
+
 ####v1.2
 
 - Ability to choose which icons (Archive or Show/Hide checkboxes) should show up in action bar when the note is being edited in the official Google Keep app (any combination can be selected)
