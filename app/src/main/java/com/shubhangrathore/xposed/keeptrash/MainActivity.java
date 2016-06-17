@@ -1,10 +1,9 @@
 /*
  * Keep Trash
  *
- * Xposed module to move 'Delete' button from overflow menu to action bar
- * in Google Keep
+ * Xposed module to customize Google Keep app
  *
- * Copyright (c) 2014 Shubhang Rathore
+ * Copyright (c) 2014 - 2016 Shubhang Rathore
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,51 +24,39 @@ package com.shubhangrathore.xposed.keeptrash;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ListView;
 import android.widget.Toast;
-
-import com.faizmalkani.floatingactionbutton.Fab;
 
 public class MainActivity extends PreferenceActivity {
 
-    public static String mGoogleKeepVersion;
+    public static final String TAG = "XposedKeepTrash";
 
     private static final String CHANGELOG_LINK = "https://github.com/xenon92/xposed-keep-trash/blob/master/CHANGELOG.md";
     private static final String DEVELOPER_WEBSITE_LINK = "http://shubhangrathore.com";
     private static final String GOOGLE_KEEP_PLAY_STORE_LINK = "https://play.google.com/store/apps/details?id=com.google.android.keep";
     private static final String READ_MORE_LINK = "http://blog.shubhangrathore.com/keep-trash/index.html";
     private static final String SOURCE_CODE_LINK = "https://www.github.com/xenon92/xposed-keep-trash";
+    private static final String DONATE_LINK = "https://play.google.com/store/apps/details?id=com.shubhangrathore.xposed.keeptrash.donate&hl=en";
 
-    public static final String TAG = "XposedKeepTrash";
-
+    public static String mGoogleKeepVersion;
     private Preference mChangelog;
     private Preference mDeveloper;
+    private Preference mDonate;
     private Preference mGoogleKeepVersionPreference;
-    private ListView mPreferenceListView;
     private Preference mReadMore;
-    private CheckBoxPreference mShowArchive;
-    private CheckBoxPreference mShowArchiveEditor;
-    private CheckBoxPreference mShowDelete;
-    private CheckBoxPreference mShowShowCheckboxesEditor;
-    private CheckBoxPreference mShowShare;
+    private SwitchPreference mShowArchive;
+    private SwitchPreference mShowDelete;
+    private SwitchPreference mShowShare;
+    private SwitchPreference mShowColorPicker;
+    private SwitchPreference mShowLabel;
+    private SwitchPreference mShowReminder;
     private Preference mSource;
-
-    private Fab mFab;
-
-    private boolean mIsScrollingUp;
-    int mLastFirstVisibleItem = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,23 +69,22 @@ public class MainActivity extends PreferenceActivity {
         mChangelog = findPreference("changelog_preference");
         mDeveloper = findPreference("developer_preference");
         mGoogleKeepVersionPreference = findPreference("installed_keep_version_preference");
-        mPreferenceListView = (ListView) findViewById(android.R.id.list);
         mReadMore = findPreference("read_more_preference");
-        mShowArchive = (CheckBoxPreference) findPreference("show_archive_checkbox_preference");
-        mShowArchiveEditor = (CheckBoxPreference) findPreference("show_archive_editor_checkbox_preference");
-        mShowDelete = (CheckBoxPreference) findPreference("show_delete_checkbox_preference");
-        mShowShowCheckboxesEditor = (CheckBoxPreference) findPreference("show_show_checkboxes_editor_checkbox_preference");
-        mShowShare = (CheckBoxPreference) findPreference("show_share_checkbox_preference");
+        mShowArchive = (SwitchPreference) findPreference("show_archive_switch_preference");
+        mShowDelete = (SwitchPreference) findPreference("show_delete_switch_preference");
+        mShowShare = (SwitchPreference) findPreference("show_share_switch_preference");
         mSource = findPreference("app_source_preference");
+        mDonate = findPreference("donate_preference");
+        mShowColorPicker = (SwitchPreference) findPreference("show_color_changer_switch_preference");
+        mShowLabel = (SwitchPreference) findPreference("show_add_label_switch_preference");
+        mShowReminder = (SwitchPreference) findPreference("show_add_reminder_switch_preference");
 
-        initializeFloatingButton();
-        hideUnhideFloatingButton();
-        setActionBarColor();
+        // Set Keep Trash version name in the app
         setAppVersionNameInPreference();
+
+        // Set Google Keep version in the app
         setGoogleKeepVersion();
-
     }
-
 
     /**
      * Retrieve Keep Trash app version
@@ -126,47 +112,43 @@ public class MainActivity extends PreferenceActivity {
      * Handles tap on preferences in the app
      *
      * @param preferenceScreen
-     * @param preference preference that has been tapped
+     * @param preference       preference that has been tapped
      * @return
      */
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
 
         if (preference == mChangelog) {
-
+            // Link to Changelog on Github
             openLink(CHANGELOG_LINK);
             return true;
-
         } else if (preference == mDeveloper) {
-
+            // Link to developer's website
             openLink(DEVELOPER_WEBSITE_LINK);
             return true;
-
         } else if (preference == mGoogleKeepVersionPreference) {
-
+            // Open Google Keep on Play Store
             openLink(GOOGLE_KEEP_PLAY_STORE_LINK);
-
         } else if (preference == mReadMore) {
-
+            // Open blog post on Keep Trash
             openLink(READ_MORE_LINK);
             return true;
-
         } else if (preference == mSource) {
-
+            // Open source code on Github
             openLink(SOURCE_CODE_LINK);
             return true;
-
+        } else if (preference == mDonate) {
+            // Open link to donate version of the app on Play Store
+            openLink(DONATE_LINK);
+            return true;
         } else if ((preference == mShowArchive) || (preference == mShowDelete)
-                || (preference == mShowShare) || (preference == mShowArchiveEditor)
-                || (preference == mShowShowCheckboxesEditor)) {
-
-            // Changes will take effect after restarting Google Keep
+                || (preference == mShowShare) || (preference == mShowColorPicker)
+                || (preference == mShowLabel) || (preference == mShowReminder)) {
+            // Make a toast notification
             Toast.makeText(getApplicationContext(),
                     getString(R.string.restart_google_keep_for_changes),
                     Toast.LENGTH_SHORT).show();
-
         }
-
         return false;
     }
 
@@ -176,13 +158,12 @@ public class MainActivity extends PreferenceActivity {
      * @param link the link to be parsed to open
      */
     private void openLink(String link) {
-
+        //Create a browser Intent
         Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(link));
         startActivity(browserIntent);
 
         Log.i(TAG, "Opening link = " + link);
-
     }
 
     /**
@@ -192,7 +173,7 @@ public class MainActivity extends PreferenceActivity {
     private void setGoogleKeepVersion() {
 
         try {
-
+            // Fetch Google Keep version
             PackageInfo mPackageInfo = getPackageManager().getPackageInfo("com.google.android.keep", 0);
             mGoogleKeepVersion = mPackageInfo.versionName;
 
@@ -211,77 +192,6 @@ public class MainActivity extends PreferenceActivity {
     }
 
     private String getGoogleKeepVersion() {
-
         return mGoogleKeepVersion;
     }
-
-    private void setActionBarColor() {
-        int mColorBlue = getResources().getColor(android.R.color.holo_blue_dark);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(mColorBlue));
-    }
-
-
-    private void initializeFloatingButton() {
-
-        mFab = (Fab)findViewById(R.id.fabbutton);
-        mFab.setFabColor(getResources().getColor(android.R.color.white));
-        mFab.setFabDrawable(getResources().getDrawable(R.drawable.ic_keep_lightbulb));
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                try {
-
-                    Log.i(TAG, "Opening Google Keep through floating button");
-                    Intent mOpenAppIntent = getPackageManager()
-                            .getLaunchIntentForPackage("com.google.android.keep");
-                    startActivity(mOpenAppIntent);
-
-                } catch (NullPointerException e) {
-
-                    Toast.makeText(getApplicationContext(),
-                            getString(R.string.opening_in_play_store),
-                            Toast.LENGTH_SHORT).show();
-
-                    Log.i(TAG, "Google Keep not installed");
-                    openLink(GOOGLE_KEEP_PLAY_STORE_LINK);
-
-                }
-            }
-        });
-
-    }
-
-    private void hideUnhideFloatingButton() {
-
-        mPreferenceListView.setOnScrollListener(new AbsListView.OnScrollListener(){
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-                final ListView mListView = getListView();
-
-                 if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE)
-                    // Scrolling stopped here
-
-                    if (view.getId() == mListView.getId()) {
-                        final int currentFirstVisibleItem = mListView.getFirstVisiblePosition();
-                        if (currentFirstVisibleItem > mLastFirstVisibleItem) {
-                            // Scrolling down here
-                            mIsScrollingUp = false;
-                            mFab.hideFab();
-                        } else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
-                            // Scrolling up here
-                            mIsScrollingUp = true;
-                            mFab.showFab();
-                        }
-                        mLastFirstVisibleItem = currentFirstVisibleItem;
-                    }
-            }
-        });
-
-    }
-
 }

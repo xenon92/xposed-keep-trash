@@ -2,10 +2,9 @@
 <!--
   ~ Keep Trash
   ~
-  ~ Xposed module to move 'Delete' button from overflow menu to action bar
-  ~ in Google Keep
+  ~ Xposed module to customize Google Keep app
   ~
-  ~ Copyright (c) 2014 Shubhang Rathore
+  ~ Copyright (c) 2014 - 2016 Shubhang Rathore
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -27,7 +26,7 @@
 
     <string name="app_name">Keep Trash</string>
     <string name="app_copyright">
-        Copyright © 2014 Shubhang Rathore
+        Copyright © 2014 - 2016 Shubhang Rathore
         \nGoogle+: http://google.com/+ShubhangRathore
         \nGithub: https://github.com/xenon92
         \nWebsite: http://shubhangrathore.com</string>
@@ -35,39 +34,9 @@
     <string name="app_version_text">Version</string>
 
 
-    <!-- Menu -->
-
-    <string name="action_exit">Exit</string>
-
-
-    <!--
-
-    Google Keep strings
-
-    These are the official strings used in Google Keep app
-    for selection_context_menu and editor_menu
-
-    -->
-
-    <string name="menu_archive">Archive</string>
-    <string name="menu_unarchive">Unarchive</string>
-    <string name="menu_add_reminder">Add reminder</string>
-    <string name="color_picker_content_description">Note color</string>
-    <string name="menu_restore">Restore</string>
-    <string name="menu_delete">Delete</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_add_picture">Add picture</string>
-    <string name="menu_clone">Make a copy</string>
-    <string name="menu_show_extracted_text">Grab image text</string>
-    <string name="menu_reset_list">Uncheck all items</string>
-    <string name="menu_show_checkboxes">Show checkboxes</string>
-    <string name="menu_hide_checkboxes">Hide checkboxes</string>
-    <string name="menu_list_settings">List settings</string>
-
-
     <!-- Keep Trash GUI strings -->
 
-    <string name="category_google_keep">Google Keep</string>
+    <string name="category_google_keep">GOOGLE KEEP</string>
     <string name="installed_version">Installed version</string>
     <string name="keep_not_installed">Google Keep not installed</string>
     <string name="tap_to_open_keep_in_play_store">\nOpen Google Keep in Play Store</string>
@@ -81,18 +50,22 @@
     <string name="show_archive">Archive</string>
     <string name="show_archive_summary">Move Archive icon to action bar</string>
 
-    <string name="show_show_checkboxes">Show/Hide checkboxes</string>
-    <string name="show_show_checkboxes_summary">Move Show/Hide checkboxes icon to action bar</string>
+    <string name="show_color_picker">Color Changer</string>
+    <string name="show_color_picker_summary">Move Color Changer icon to action bar</string>
+
+    <string name="show_label">Label</string>
+    <string name="show_label_summary">Move Add Label icon to action bar</string>
+
+    <string name="show_reminder">Reminder</string>
+    <string name="show_reminder_summary">Move Add Reminder icon to action bar</string>
 
     <string name="restart_google_keep_for_changes">Restart Google Keep for changes to take effect</string>
-    <string name="opening_in_play_store">Opening Google Keep in Play Store</string>
-    <string name="note_selected_category">Note selected</string>
-    <string name="note_editor_category">Note editor</string>
+    <string name="note_selected_category">NOTE SELECTED</string>
 
 
     <!-- App details -->
 
-    <string name="category_app_details">Keep Trash</string>
+    <string name="category_app_details">KEEP TRASH</string>
 
     <string name="source">Source</string>
     <string name="source_summary">Go through the source code of the app</string>
@@ -107,5 +80,8 @@
 
     <string name="read_more">Read more</string>
     <string name="read_more_summary">Know more about Keep Trash Xposed module</string>
+
+    <string name="donate">Donate</string>
+    <string name="donate_summary">Buy the donate version of the app on Play Store</string>
 
 </resources>

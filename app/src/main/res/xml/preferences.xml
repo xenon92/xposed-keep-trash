@@ -3,10 +3,9 @@
 <!--
   ~ Keep Trash
   ~
-  ~ Xposed module to move 'Delete' button from overflow menu to action bar
-  ~ in Google Keep
+  ~ Xposed module to customize Google Keep app
   ~
-  ~ Copyright (c) 2014 Shubhang Rathore
+  ~ Copyright (c) 2014 - 2016 Shubhang Rathore
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -52,45 +51,46 @@
     <PreferenceCategory
         android:title="@string/note_selected_category"/>
 
-    <CheckBoxPreference
-        android:key="show_delete_checkbox_preference"
-        android:icon="@drawable/ic_trash_dark"
+    <SwitchPreference
+        android:key="show_delete_switch_preference"
+        android:icon="@drawable/ic_delete_black_24dp"
         android:title="@string/show_delete"
         android:summary="@string/show_delete_summary"
         android:defaultValue="true" />
 
-    <CheckBoxPreference
-        android:key="show_share_checkbox_preference"
-        android:icon="@drawable/ic_share_dark"
+    <SwitchPreference
+        android:key="show_share_switch_preference"
+        android:icon="@drawable/ic_share_black_24dp"
         android:title="@string/show_share"
         android:summary="@string/show_share_summary"
         android:defaultValue="false" />
 
-    <CheckBoxPreference
-        android:key="show_archive_checkbox_preference"
-        android:icon="@drawable/ic_mark_inactive_dark"
+    <SwitchPreference
+        android:key="show_archive_switch_preference"
+        android:icon="@drawable/ic_archive_black_24dp"
         android:title="@string/show_archive"
         android:summary="@string/show_archive_summary"
+        android:defaultValue="false" />
+
+    <SwitchPreference
+        android:key="show_color_changer_switch_preference"
+        android:icon="@drawable/ic_color_lens_black_24dp"
+        android:title="@string/show_color_picker"
+        android:summary="@string/show_color_picker_summary"
         android:defaultValue="true" />
 
+    <SwitchPreference
+        android:key="show_add_label_switch_preference"
+        android:icon="@drawable/ic_label_black_24dp"
+        android:title="@string/show_label"
+        android:summary="@string/show_label_summary"
+        android:defaultValue="false" />
 
-    <!-- Note editor action bar customizations -->
-
-    <PreferenceCategory
-        android:title="@string/note_editor_category" />
-
-    <CheckBoxPreference
-        android:key="show_archive_editor_checkbox_preference"
-        android:icon="@drawable/ic_mark_inactive_dark"
-        android:title="@string/show_archive"
-        android:summary="@string/show_archive_summary"
-        android:defaultValue="true" />
-
-    <CheckBoxPreference
-        android:key="show_show_checkboxes_editor_checkbox_preference"
-        android:icon="@drawable/ic_checked_checkbox_dark"
-        android:title="@string/show_show_checkboxes"
-        android:summary="@string/show_show_checkboxes_summary"
+    <SwitchPreference
+        android:key="show_add_reminder_switch_preference"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/show_reminder"
+        android:summary="@string/show_label_summary"
         android:defaultValue="true" />
 
 
@@ -108,6 +108,11 @@
         android:key="app_source_preference"
         android:title="@string/source"
         android:summary="@string/source_summary" />
+
+    <PreferenceScreen
+        android:key="donate_preference"
+        android:title="@string/donate"
+        android:summary="@string/donate_summary" />
 
     <PreferenceScreen
         android:key="changelog_preference"

@@ -2,10 +2,9 @@
 <!--
   ~ Keep Trash
   ~
-  ~ Xposed module to move 'Delete' button from overflow menu to action bar
-  ~ in Google Keep
+  ~ Xposed module to customize Google Keep app
   ~
-  ~ Copyright (c) 2014 Shubhang Rathore
+  ~ Copyright (c) 2014 - 2016 Shubhang Rathore
   ~
   ~ This program is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU General Public License as published by
@@ -35,36 +34,6 @@
     <string name="app_version_text">Version</string>
 
 
-    <!-- Menu -->
-
-    <string name="action_exit">Beenden</string>
-
-
-    <!--
-
-    Google Keep strings
-
-    These are the official strings used in Google Keep app
-    for selection_context_menu
-
-    -->
-
-    <string name="menu_archive">Archivieren</string>
-    <string name="menu_unarchive">Dearchivieren</string>
-    <string name="menu_add_reminder">Erinnerung hinzufügen</string>
-    <string name="color_picker_content_description">Notizfarbe</string>
-    <string name="menu_restore">Wiederherstellen</string>
-    <string name="menu_delete">Löschen</string>
-    <string name="menu_share">Teilen</string>
-    <string name="menu_add_picture">Bild hinzufügen</string>
-    <string name="menu_clone">Kopie erstellen</string>
-    <string name="menu_show_extracted_text">Bildtext erfassen </string>
-    <string name="menu_reset_list">Markierungen aufheben</string>
-    <string name="menu_show_checkboxes">Kontrollkästchen anzeigen</string>
-    <string name="menu_hide_checkboxes">Kontrollkästchen ausblenden</string>
-    <string name="menu_list_settings">Listeneinstellungen</string>
-
-
     <!-- Keep Trash GUI strings -->
 
     <string name="category_google_keep">Google Keep</string>
@@ -81,13 +50,8 @@
     <string name="show_archive">Archivieren</string>
     <string name="show_archive_summary">Archivieren Symbol in die action bar verschieben</string>
 
-    <string name="show_show_checkboxes">Kontrollkästchen anzeigen/ausblenden</string>
-    <string name="show_show_checkboxes_summary">Kontrollkästchen anzeigen/ausblenden Symbol in die action bar verschieben</string>
-
     <string name="restart_google_keep_for_changes">Google Keep neu starten um Änderungen anzuwenden</string>
-    <string name="opening_in_play_store">Öffne Google Keep im Playstore</string>
     <string name="note_selected_category">Notiz ausgewählt</string>
-    <string name="note_editor_category">Notiz Editor</string>
 
 
     <!-- App details -->

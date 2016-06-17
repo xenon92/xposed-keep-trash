@@ -1,10 +1,9 @@
 /*
  * Keep Trash
  *
- * Xposed module to move 'Delete' button from overflow menu to action bar
- * in Google Keep
+ * Xposed module to customize Google Keep app
  *
- * Copyright (c) 2014 Shubhang Rathore
+ * Copyright (c) 2014 - 2016 Shubhang Rathore
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,29 +22,49 @@
 package com.shubhangrathore.xposed.keeptrash;
 
 import android.content.res.XModuleResources;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import de.robv.android.xposed.IXposedHookInitPackageResources;
+import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
+import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XSharedPreferences;
+import de.robv.android.xposed.XposedBridge;
+import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
+import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 /**
  * Created by Shubhang on 10/7/2014.
  */
-public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposedHookZygoteInit {
+public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposedHookZygoteInit, IXposedHookLoadPackage {
 
+    public static XModuleResources modRes;
+    private static boolean DEBUG = false;
+
+    private static String TAG = "XposedKeepTrash";
     private static String GOOGLE_KEEP = "com.google.android.keep";
     private static String MODULE_PATH = null;
     private static String PACKAGE_NAME = XposedKeepTrash.class.getPackage().getName();
-    private static String TAG = "XposedKeepTrash";
+    private static String BROWSE_FRAGMENT_CLASS = "com.google.android.keep.browse.BrowseFragment";
 
     private boolean mShowArchive;
-    private boolean mShowArchiveEditor;
     private boolean mShowDelete;
-    private boolean mShowShowCheckboxesEditor;
     private boolean mShowShare;
+    private boolean mShowColorChanger;
+    private boolean mShowLabel;
+    private boolean mShowReminder;
 
+    private int mKeepMenuArchive;
+    private int mKeepMenuUnarchive;
+    private int mKeepMenuDelete;
+    private int mKeepMenuShare;
+    private int mKeepMenuColorChanger;
+    private int mKeepMenuLabel;
+    private int mKeepMenuReminder;
+
+    private Menu mMenu;
 
     @Override
     public void initZygote(IXposedHookZygoteInit.StartupParam startupParam) throws Throwable {
@@ -53,7 +72,7 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
     }
 
     @Override
-    public void handleInitPackageResources(XC_InitPackageResources.InitPackageResourcesParam resParam) throws Throwable {
+    public void handleInitPackageResources(final XC_InitPackageResources.InitPackageResourcesParam resParam) throws Throwable {
 
         // If package is not com.google.android.keep, return to not execute further
         if (!resParam.packageName.equals(GOOGLE_KEEP)) {
@@ -61,140 +80,114 @@ public class XposedKeepTrash implements IXposedHookInitPackageResources, IXposed
         }
 
         XSharedPreferences mXSharedPreferences = new XSharedPreferences(PACKAGE_NAME);
-        XModuleResources modRes = XModuleResources.createInstance(MODULE_PATH, resParam.res);
+        modRes = XModuleResources.createInstance(MODULE_PATH, resParam.res);
 
+        // "Note Selected" preferences
+        mShowArchive = mXSharedPreferences.getBoolean("show_archive_switch_preference", true);
+        mShowDelete = mXSharedPreferences.getBoolean("show_delete_switch_preference", true);
+        mShowShare = mXSharedPreferences.getBoolean("show_share_switch_preference", true);
+        mShowColorChanger = mXSharedPreferences.getBoolean("show_color_changer_switch_preference", true);
+        mShowLabel = mXSharedPreferences.getBoolean("show_add_label_switch_preference", true);
+        mShowReminder = mXSharedPreferences.getBoolean("show_add_reminder_switch_preference", true);
 
-        // In Google Keep app, "menu_delete" menu item is initialized in a different xml (ids.xml)
-        // than where "menu_delete" is given its properties (selection_context_menu.xml).
-        // So replacing the individual menu item through Xposed, based on its <id>
-        // would replace the menu item as soon as the package is loaded.
-        //
-        // But when the menu is inflated through "selection_context_menu" in Google Keep app,
-        // it will override the initial parameters to <id> given by Xposed when the package was loaded,
-        // causing the menu_delete menu item to have Google Keep default properties,
-        // and it will be shown in the overflow menu again.
-        // Hence I replaced the whole "selection_context_menu" menu with my custom menu,
-        // "custom_selection_context_menu" with the required properties for menu_delete.
-        // I'll need to keep the "custom_selection_context_menu.xml" to the latest menu items
-        // if the default "selection_context_menu.xml" in Google Keep changes its menu items.
-        // Same holds true for "editor_menu.xml".
+        mKeepMenuArchive = resParam.res.getIdentifier("menu_archive", "id", GOOGLE_KEEP);
+        mKeepMenuUnarchive = resParam.res.getIdentifier("menu_unarchive", "id", GOOGLE_KEEP);
+        mKeepMenuDelete = resParam.res.getIdentifier("menu_delete", "id", GOOGLE_KEEP);
+        mKeepMenuShare = resParam.res.getIdentifier("menu_send", "id", GOOGLE_KEEP);
+        mKeepMenuColorChanger = resParam.res.getIdentifier("menu_color_picker", "id", GOOGLE_KEEP);
+        mKeepMenuLabel = resParam.res.getIdentifier("menu_change_labels", "id", GOOGLE_KEEP);
+        mKeepMenuReminder = resParam.res.getIdentifier("menu_add_reminder", "id", GOOGLE_KEEP);
+    }
 
+    @Override
+    public void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam) throws Throwable {
 
-        mShowArchive = mXSharedPreferences.getBoolean("show_archive_checkbox_preference", true);
-        mShowArchiveEditor = mXSharedPreferences.getBoolean("show_archive_editor_checkbox_preference", true);
-        mShowDelete = mXSharedPreferences.getBoolean("show_delete_checkbox_preference", true);
-        mShowShowCheckboxesEditor = mXSharedPreferences.getBoolean("show_show_checkboxes_editor_checkbox_preference", true);
-        mShowShare = mXSharedPreferences.getBoolean("show_share_checkbox_preference", true);
-
-
-        // Replacing resources for action bar when note is selected
-        // Replacing original selection_context_menu.xml with custom menu
-
-        if (mShowArchive && !mShowDelete && !mShowShare) {
-
-            // Only show Archive in action bar
-            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
-                    modRes.fwd(R.menu.archive_selection_context_menu));
-
-            Log.i(TAG, "Replaced resources to show only Archive in action bar");
-
-        } else if (!mShowArchive && mShowDelete && !mShowShare) {
-
-            // Only show Delete in action bar
-            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
-                    modRes.fwd(R.menu.delete_selection_context_menu));
-
-            Log.i(TAG, "Replaced resources to show only Delete in action bar");
-
-        } else if (!mShowArchive && !mShowDelete && mShowShare) {
-
-            // Only show Share in action bar
-            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
-                    modRes.fwd(R.menu.share_selection_context_menu));
-
-            Log.i(TAG, "Replaced resources to show only Share in action bar");
-
-        } else if (mShowArchive && mShowDelete && !mShowShare) {
-
-            // Show Archive and Delete, but not Share in action bar
-            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
-                    modRes.fwd(R.menu.archive_delete_selection_context_menu));
-
-            Log.i(TAG, "Replaced resources to show both Archive and Delete in action bar");
-
-        } else if (!mShowArchive && mShowDelete && mShowShare) {
-
-            // Show Delete and Share, but not Archive in action bar
-            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
-                    modRes.fwd(R.menu.delete_share_selection_context_menu));
-
-            Log.i(TAG, "Replaced resources to show both Delete and Share in action bar");
-
-        } else if (mShowArchive && !mShowDelete && mShowShare) {
-
-            // Show Archive and Share, but not Delete in action bar
-            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
-                    modRes.fwd(R.menu.archive_share_selection_context_menu));
-
-            Log.i(TAG, "Replaced resources to show both Archive and Share in action bar");
-
-        } else if (mShowArchive && mShowDelete && mShowShare) {
-
-            // Show Archive, Delete and Share in action bar (all)
-            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
-                    modRes.fwd(R.menu.archive_delete_share_selection_context_menu));
-
-            Log.i(TAG, "Replaced resources to show all icons in action bar");
-
-        } else if (!mShowArchive && !mShowDelete && !mShowShare) {
-
-            // Show none among Archive, Delete or Share in action bar (none)
-            resParam.res.setReplacement("com.google.android.keep", "menu", "selection_context_menu",
-                    modRes.fwd(R.menu.none_selection_context_menu));
-
-            Log.i(TAG, "Replaced resources to show none of the icons in action bar");
-
+        // If package is not com.google.android.keep, return to not execute further
+        if (!loadPackageParam.packageName.equals(GOOGLE_KEEP)) {
+            return;
         }
 
+        // Hook method 'setActionModeMenuItemVisibility' that updates the visibility of
+        // menu items in the class 'BrowseFragment' when a note is selected in Google Keep.
+        XposedHelpers.findAndHookMethod(BROWSE_FRAGMENT_CLASS, loadPackageParam.classLoader, "setActionModeMenuItemVisibility", Menu.class, long[].class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(final MethodHookParam methodHookParam) throws Throwable {
 
-        // Replacing resources for action bar when note is being edited
-        // Replacing original editor_menu.xml with custom menu
+                // Get reference of the Action Bar Menu
+                mMenu = (Menu) methodHookParam.args[0];
 
-        if (!mShowArchiveEditor && !mShowShowCheckboxesEditor) {
+                // Updating the Share Menu Item
+                if (mShowShare) {
+                    mMenu.findItem(mKeepMenuShare)
+                            .setIcon(modRes.getDrawable(R.drawable.ic_share_white_24dp))
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                } else {
+                    mMenu.findItem(mKeepMenuShare)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                }
 
-            // Show none of Archive or Show/Hide checkboxes in action bar
-            resParam.res.setReplacement("com.google.android.keep", "menu", "editor_menu",
-                    modRes.fwd(R.menu.none_editor_menu));
+                // Updating the Archive and Unarchive Menu Item
+                if (mShowArchive) {
 
-            Log.i(TAG, "Replaced resources to show none of Archive or Show/Hide checkbox in action bar in note editor");
+                    // Archive
+                    mMenu.findItem(mKeepMenuArchive)
+                            .setIcon(modRes.getDrawable(R.drawable.ic_archive_white_24dp))
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        } else if (!mShowArchiveEditor && mShowShowCheckboxesEditor) {
+                    // Unarchive
+                    mMenu.findItem(mKeepMenuUnarchive)
+                            .setIcon(modRes.getDrawable(R.drawable.ic_unarchive_white_24dp))
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                } else {
 
-            // Only show Show/Hide checkboxes menu item in action bar
-            resParam.res.setReplacement("com.google.android.keep", "menu", "editor_menu",
-                    modRes.fwd(R.menu.show_hide_checkboxes_editor_menu));
+                    // Archive
+                    mMenu.findItem(mKeepMenuArchive)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 
-            Log.i(TAG, "Replaced resources to show only Show/Hide checkboxes in action bar in note editor");
+                    // Unarchive
+                    mMenu.findItem(mKeepMenuUnarchive)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                }
 
-        } else if (mShowArchiveEditor && mShowShowCheckboxesEditor) {
+                // Update the Delete Menu Item
+                // Restore Menu Item doesn't need to be updated as it shows up in the "Trash"
+                // activity in Google Keep
+                if (mShowDelete) {
+                    mMenu.findItem(mKeepMenuDelete)
+                            .setIcon(modRes.getDrawable(R.drawable.ic_delete_white_24dp))
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                } else {
+                    mMenu.findItem(mKeepMenuDelete)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                }
 
-            // Show both Archive and Show/Hide Checkboxes in action bar
-            resParam.res.setReplacement("com.google.android.keep", "menu", "editor_menu",
-                    modRes.fwd(R.menu.archive_show_hide_checkboxes_editor_menu));
+                // Update Color Picker Menu Item
+                if (mShowColorChanger) {
+                    mMenu.findItem(mKeepMenuColorChanger)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                } else {
+                    mMenu.findItem(mKeepMenuColorChanger)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                }
 
-            Log.i(TAG, "Replaced resources to show both Delete and Show/Hide checkboxes in action bar in note editor");
+                // Update Add Label Menu Item
+                if (mShowLabel) {
+                    mMenu.findItem(mKeepMenuLabel)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                } else {
+                    mMenu.findItem(mKeepMenuLabel)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                }
 
-        } else if (mShowArchiveEditor && !mShowShowCheckboxesEditor) {
-
-            // Only show Archive in action bar
-            // This is the default editor menu of Google Keep.
-            // This condition needs to be overwritten by xposed or else in a common use case,
-            // the previously selected menu replacement will stay in effect.
-            resParam.res.setReplacement("com.google.android.keep", "menu", "editor_menu",
-                    modRes.fwd(R.menu.official_editor_menu));
-
-            Log.i(TAG, "Replaced resources with official editor_menu to show only Archive in action bar in note editor");
-
-        }
+                // Update Add Reminder Menu Item
+                if (mShowReminder) {
+                    mMenu.findItem(mKeepMenuReminder)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                } else {
+                    mMenu.findItem(mKeepMenuReminder)
+                            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+                }
+            }
+        });
     }
 }
