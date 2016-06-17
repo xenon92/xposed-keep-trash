@@ -2,24 +2,16 @@ apply plugin: 'com.android.application'
 
 android {
 
-    compileSdkVersion 21
+    compileSdkVersion 23
     buildToolsVersion '21.1.1'
     defaultConfig {
         applicationId "com.shubhangrathore.xposed.keeptrash"
         minSdkVersion 15
         targetSdkVersion 21
     }
-    buildTypes {
-        release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    provided files('src/main/lib/XposedBridgeApi-54.jar')
-    compile 'com.android.support:support-v4:21+'
-    compile project(':floatingActionButton')
+    provided 'de.robv.android.xposed:api:82'
+    compile 'com.android.support:appcompat-v7:23.4.0'
 }
