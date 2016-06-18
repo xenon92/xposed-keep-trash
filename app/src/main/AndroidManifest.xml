@@ -22,8 +22,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shubhangrathore.xposed.keeptrash"
-    android:versionCode="5"
-    android:versionName="2.0" >
+    android:versionCode="6"
+    android:versionName="2.0.1" >
 
     <application
         android:allowBackup="true"
@@ -47,7 +47,7 @@
             android:value="true" />
         <meta-data
             android:name="xposeddescription"
-            android:value="Moves \'Delete\', \'Archive\', \'Show/Hide Checkboxes\' or \'Share\' menu options from 3-dot overflow menu to action bar in official Google Keep app" />
+            android:value="Customize the Google Keep experience" />
         <meta-data
             android:name="xposedminversion"
             android:value="30" />
