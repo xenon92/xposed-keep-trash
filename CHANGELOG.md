@@ -7,6 +7,24 @@ Changelog
 **Read more about Keep Trash on my [blog](http://blog.shubhangrathore.com/) [post](http://blog.shubhangrathore.com/keep-trash/index.html)**
 
 
+#####v2.0.1
+
+- Minor fix to the Xposed Module description that shows up in the Xposed installer
+
+
+####v2.0
+
+- Completely re-written Xposed implementation that is more robust and flexible
+- Add support for Google Keep v3.3+
+- Visibility of 6 menu icons can be customized - Delete, Archive, Share, Label, Reminder and Color picker
+- New Keep Trash app icon
+- New material design for the Keep Trash app
+- New material drawables for the Google Keep action bar
+- Removed floating action button (for now?)
+- Removed customization of 'Note Editor' action bar as Google Keep doesn't have those options in action bar anymore
+
+
+
 ####v1.3
 
 - Fix action bar icon sizes for official Google Keep

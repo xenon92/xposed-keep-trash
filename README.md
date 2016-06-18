@@ -31,27 +31,23 @@ In v1.2, I implemented a **customized icon listing** in the action bar when the 
 - Archive
 - Show/Hide Checkboxes
 
-Users can select which icons they want to show in their Google Keep app action bar and customize the way they use Google Keep.
+With v2.0 comes a completely re-written implementation of the Xposed module. The code is more flexible and robust. Keep Trash now uses the new material design and new material drawables that are consistent with the official Google Keep app. Now, visibility of 6 menu items can be customized - Delete, Archive, Share, Reminder, Label and Color Picker. Keep Trash is now available on Google Play store for early and automatic updates. For more details, check the changelog below.
+
+You can select the icons you want to show in your Google Keep app action bar and customize your Google Keep experience.
 
 
 Screenshots
 ---
 
-####GUI
+![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2016/06/play_store_1.jpg?raw=true)
 
+![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2016/06/play_store_2.jpg?raw=true)
 
-![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Jul/Screenshot_2014-07-17-18-38-18_jhtnexus520140717_183932.png?raw=true)
+![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2016/06/play_store_3.jpg?raw=true)
 
-![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Jul/Screenshot_2014-07-13-13-12-35_HAenexus520140713_140345.png?raw=true)
+![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2016/06/play_store_4.jpg?raw=true)
 
-####Before
-
-![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Jul/Screenshot_2014-07-10-21-21-05.png?raw=true)
-
-
-####After
-
-![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2014/Jul/Screenshot_2014-07-10-21-15-55.png?raw=true)
+![](https://raw.githubusercontent.com/xenon92/blog/gh-pages/content/images/2016/06/play_store_5.jpg?raw=true)
 
 
 How to use?
@@ -75,8 +71,8 @@ Requirements
 Downloads
 ---
 
-Check the '**[Releases](https://github.com/xenon92/xposed-keep-trash/releases)**' section in my Github source.
-Check the '**[Xposed module repository](http://repo.xposed.info/module/com.shubhangrathore.xposed.keeptrash)**'
+- '**[Releases](https://github.com/xenon92/xposed-keep-trash/releases)**' section in my Github source.
+- **[Xposed module repository](http://repo.xposed.info/module/com.shubhangrathore.xposed.keeptrash)**
 
 Changelog
 ---
@@ -92,4 +88,4 @@ The source code is licensed under GNU General Public License v3 (**[GPL v3](http
 Copyright
 ---
 
-Copyright (C) 2014 Shubhang Rathore
+Copyright (C) 2014 - 2016 Shubhang Rathore
